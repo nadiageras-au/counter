@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+}
+
+.dflex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.block {
+    height: 120px;
+    width: 150px;
+    margin: 200px auto;
+    font-size: 42px;
+    box-shadow: 0 0 15px 5px #ecdfff;
+    padding: 20px;
+}
+
+.block-btn {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    width: 80px;
+    font-size: 16px;
+}
+
+.red {
+    color: #fd5eab;
+    font-weight: bold;
+}
