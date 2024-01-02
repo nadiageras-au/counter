@@ -9,8 +9,8 @@
 }
 
 .block {
-    height: 120px;
-    width: 150px;
+    height: 320px;
+    width: 300px;
     margin: 200px auto;
     font-size: 42px;
     box-shadow: 0 0 15px 5px #ecdfff;
@@ -18,14 +18,15 @@
 }
 
 .block-btn {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-around;
     gap: 10px;
 }
 
 .btn {
     padding: 5px 10px;
-    width: 80px;
+    width: 280px;
     font-size: 16px;
 }
 
