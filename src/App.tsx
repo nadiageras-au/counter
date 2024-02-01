@@ -1,65 +1,59 @@
 import './App.css';
-import {Button} from "./components/button/Button";
-import {Display, DisplayProps} from './components/screen/Display'
-import {useState} from "react";
+import styled from 'styled-components';
+import {Settings} from './components/settings/Settings'
+import {Counter} from './components/counter/Counter';
+import {useState} from 'react';
 
 // type ValueType = {
 //     valueRange: 0 | 1 | 2 | 3 | 4 | 5
 // }
+
+type LocalStorageType = {
+    name: string
+    value: string
+}
+
 function App() {
 
-    const minValue = 0;
-    const maxValue = 5;
-    const [value, setValue] = useState(minValue)
-    const addCount = () => {
-        if (value < maxValue)
-            setValue(prev => prev + 1)
+
+    // let [localStorage, setlocalStorage] = useState<LocalStorageType[]>([
+    //     {name: '', value:'' },
+    //     {name: '', value:''},
+    // ]);
+
+    let [localStart, setLocalStart] = useState('')
+    let [localMax, setLocalMax] = useState('')
+
+    const setToLocalStorage = (startValue: number, maxValue: number) => {
+       // console.log("start ", startValue, "max ", maxValue)
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue));
+        window.dispatchEvent(new Event('storage'));
+        
     }
 
-    const resetCount = () => {
-        setValue(minValue)
-    }
-
-    const setToLocalStorage = () => {
-        localStorage.setItem('counterValue', JSON.stringify(value))
-        localStorage.setItem('counterValue + 1', JSON.stringify(value + 1))
-    }
-
-    const getToLocalStorage = () => {
-       let valueAsString =  localStorage.getItem('counterValue');
-       if(valueAsString) {
-           let newValue = JSON.parse(valueAsString);
-           setValue(newValue)
-       }
-    }
-
-    const clearLocalStorage = () => {
-        localStorage.clear();
-    }
-
-
-    const removeItemFromStorage = () => {
-        localStorage.removeItem('counterValue + 1')
-    }
+    
 
     return (
         <div className="App">
-            <div className="dflex block">
-                <Display countValue={value} maxValue={maxValue}/>
-
-                <div className='dflex block-btn'>
-                    <Button title="inc" isDisabled={value >= maxValue} onClick={() => addCount()}/>
-                    <Button title="reset" isDisabled={value === minValue} onClick={() => resetCount()}/>
-                    <Button title="setToLocalStorage" isDisabled={false} onClick={() => setToLocalStorage()}/>
-                    <Button title="getToLocalStorage" isDisabled={false} onClick={() => getToLocalStorage()}/>
-                    <Button title="clearLocalStorage" isDisabled={false} onClick={() => clearLocalStorage()}/>
-                    <Button title="removeItemFromStorage" isDisabled={false} onClick={() => removeItemFromStorage()}/>
-                </div>
-            </div>
+            <Container>
+                <Settings set={setToLocalStorage}/>
+                <Counter />
+            </Container>
 
         </div>
     );
 }
 
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 200px auto;
+  font-size: 42px;
+  padding: 20px;
+
+`
 export default App;
 
