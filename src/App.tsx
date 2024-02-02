@@ -4,23 +4,32 @@ import {Settings} from './components/settings/Settings'
 import {Counter} from './components/counter/Counter';
 import {useState} from 'react';
 
-// type ValueType = {
-//     valueRange: 0 | 1 | 2 | 3 | 4 | 5
-// }
 
-type LocalStorageType = {
-    name: string
-    value: string
-}
-
+ // type msgArrType = {
+ //     type: string
+ //     title: string
+ // }
 function App() {
+
+    let msgArr= [
+        {type: "info", title: "enter the values and press 'set'"},
+        {type: "error", title: "Incorrect value!"},
+    ]
     
+    const [msgForDisplay, setMsgForDisplay] = useState('')
     
+    const [msg, setMsg] = useState('');
+
+    const setDisplayMessage = (num:number)=> {
+       let newMsg = (num === 2) ? msgArr[1].title :
+            (num === 1)  ? msgArr[0].title : ''
+        setMsg(newMsg);
+    }
     return (
         <div className="App">
             <Container>
-                <Settings/>
-                <Counter />
+                <Settings setDisplayMsg={setDisplayMessage}/>
+                <Counter displayMsg={msg}/>
             </Container>
 
         </div>

@@ -7,10 +7,10 @@ import {Button} from '../button/Button';
 import {WrapperBlock} from '../counter/Counter';
 
 export type SettingsProps = any & {
-    set: (startValue:number, maxValue:number)=> void
+    setDisplayMsg: (num: number)=>void
     //label: string
 }
-export const Settings: React.FC<SettingsProps> = ({set}) => {
+export const Settings: React.FC<SettingsProps> = ({setDisplayMsg}) => {
 
     let localMax = Number(localStorage.getItem('maxValue'));
     let localStart = Number(localStorage.getItem('startValue'));
@@ -24,12 +24,18 @@ export const Settings: React.FC<SettingsProps> = ({set}) => {
         localStorage.setItem('startValue', JSON.stringify(startValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue));
         window.dispatchEvent(new Event('storage'));
+        setDisplayMessageHandler(0);
 
+    }
+
+    const setDisplayMessageHandler = (num:number)=> {
+        setDisplayMsg(num)
     }
     const onChangeMaxhandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         let newMaxtValue = Number(e.currentTarget.value);
         const newError = (startValue >= newMaxtValue || startValue < 0)
         setMaxValue(Number(e.currentTarget.value));
+        setDisplayMessageHandler(newError ? 2 : 1);
         setInputError(newError);
     }
 
@@ -37,14 +43,13 @@ export const Settings: React.FC<SettingsProps> = ({set}) => {
         let newStartValue = Number(e.currentTarget.value);
         const newError = (newStartValue >= maxValue || newStartValue < 0)
         setStartValue(newStartValue);
-        setInputError(newError)
+        setDisplayMessageHandler(newError ? 2 : 1);
+        setInputError(newError);
     }
 
     const clearLocalStorage = () => {
         localStorage.clear();
     }
-
-
 
     return (
         <BoxWrapper>
@@ -69,11 +74,6 @@ export const Settings: React.FC<SettingsProps> = ({set}) => {
         </BoxWrapper>);
 };
 
-const StyledInput = styled.label`
-  &::after {
-    content: attr(aria-label);
-  }
-`
 
 const WrapperBlockSet = styled(WrapperBlock)`
   flex-direction: column;

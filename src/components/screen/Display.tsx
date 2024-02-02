@@ -1,17 +1,16 @@
 import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
-export type  DisplayProps = any & {
-    countValue: number
-    maxValue: number
+export type  DisplayProps = {
+    displayData: string
     error: boolean
 
 }
-export const Display:React.FC<DisplayProps> = ({countValue, maxValue, error}) => {
+export const Display:React.FC<DisplayProps> = ({displayData, error}) => {
 
     return (
         <StyledDisplay error={error}>
-            {countValue}
+            {displayData}
         </StyledDisplay>
     );
 };

@@ -5,6 +5,7 @@ import {Display, DisplayProps} from '../screen/Display'
 import {Button} from '../button/Button';
 
 export type CounterProps = {
+    displayMsg: string
     // start:string
     // max:string
 
@@ -29,7 +30,7 @@ export const Counter = (props:CounterProps) => {
     }, [localStart])
 
     const addCount = () => {
-    
+
         if (countStart < localMax) {
             setCountStart(countStart + 1);
         }
@@ -60,6 +61,7 @@ export const Counter = (props:CounterProps) => {
     const removeItemFromStorage = () => {
         localStorage.removeItem('counterValue + 1')
     }
+    const dataDisplay = props.displayMsg === '' ? String(countStart) : props.displayMsg
 
     return (
         <BoxWrapper>
@@ -67,7 +69,7 @@ export const Counter = (props:CounterProps) => {
                 {/*<Display countValue={startValue} maxValue={maxValue}/>*/
                 }
 
-                <Display countValue={countStart} error={countError}/>
+                <Display displayData={props.displayMsg ? props.displayMsg : String(countStart)} error={countError}/>
             </WrapperBlock>
 
             <WrapperBlock className='dflex block-btn'>
