@@ -14,15 +14,7 @@ type LocalStorageType = {
 }
 
 function App() {
-
-
-    // let [localStorage, setlocalStorage] = useState<LocalStorageType[]>([
-    //     {name: '', value:'' },
-    //     {name: '', value:''},
-    // ]);
-
-    let [localStart, setLocalStart] = useState('')
-    let [localMax, setLocalMax] = useState('')
+    
 
     const setToLocalStorage = (startValue: number, maxValue: number) => {
        // console.log("start ", startValue, "max ", maxValue)

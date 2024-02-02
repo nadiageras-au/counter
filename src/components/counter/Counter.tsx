@@ -1,7 +1,6 @@
 import React, {ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {BoxWrapper} from '../helpers/StyledBoxWrapper';
-import {Input} from '../input/Input';
 import {Display, DisplayProps} from '../screen/Display'
 import {Button} from '../button/Button';
 
@@ -15,6 +14,7 @@ export const Counter = (props:CounterProps) => {
     let localStart = Number(localStorage.getItem('startValue'));
 
     let [countStart, setCountStart] = useState(localStart ? localStart : 0);
+    //let [countValue, setCountValue] = useState
 
     useEffect(() => {
         window.addEventListener('storage', ()=> {
@@ -25,33 +25,15 @@ export const Counter = (props:CounterProps) => {
 
     }, [localStart])
 
-
-    // const getToLocalStorage = () => {
-    //     let startValueAsString = localStorage.getItem('startValue');
-    //     if (startValueAsString) {
-    //         let newStartValue = JSON.parse(startValueAsString);
-    //         setCountStart(newStartValue)
-    //     }
-    //
-    //     let maxValueAsString = localStorage.getItem('maxValue');
-    //     if (maxValueAsString) {
-    //         let newMaxValue = JSON.parse(maxValueAsString);
-    //         //setLocalMax(newMaxValue)
-    //     }
-    // }
-
-    //let [value, setValue] = useState(props.start)
-    //
-    // useEffect = (()=>{setValue(start);}, [])
-
     const addCount = () => {
-       // console.log('start ', props.start, "max ", props.max);
-        // setValue(Number(value) + 1)
+
+        setCountStart(countStart + 1)
     }
-    //
-    // const resetCount = () => {
-    //     setValue(minValue)
-    // }
+
+    const resetCount = () => {
+        console.log('reset start ', localStart, "max ", localMax);
+        setCountStart(localStart)
+    }
 
 
     // const getToLocalStorage = () => {
@@ -84,7 +66,7 @@ export const Counter = (props:CounterProps) => {
             <WrapperBlock className='dflex block-btn'>
                 <Button title="inc" isDisabled={false} onClick={() => addCount()}/>
 
-                <Button title="reset" isDisabled={false} onClick={() => {}}/>
+                <Button title="reset" isDisabled={false} onClick={() => resetCount()}/>
 
             </WrapperBlock>
         </BoxWrapper>);
