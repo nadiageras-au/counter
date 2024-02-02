@@ -15,10 +15,17 @@ export const Settings: React.FC<SettingsProps> = ({set}) => {
     let localMax = Number(localStorage.getItem('maxValue'));
     let localStart = Number(localStorage.getItem('startValue'));
 
-    const [maxValue, setMaxValue] = useState( localMax ? localMax : 1)
+    const [maxValue, setMaxValue] = useState( localMax ? localMax : 5)
     const [startValue, setStartValue] = useState(localStart ? localStart : 0)
     const [inputError, setInputError] = useState(false)
 
+    const setToLocalStorage = (startValue: number, maxValue: number) => {
+        // console.log("start ", startValue, "max ", maxValue)
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue));
+        window.dispatchEvent(new Event('storage'));
+
+    }
     const onChangeMaxhandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         let newMaxtValue = Number(e.currentTarget.value);
         const newError = (startValue >= newMaxtValue || startValue < 0)
@@ -56,7 +63,7 @@ export const Settings: React.FC<SettingsProps> = ({set}) => {
 
             <WrapperBlock>
 
-                <Button title="set" isDisabled={false} onClick={() => set(startValue, maxValue)}/>
+                <Button title="set" isDisabled={inputError} onClick={() => setToLocalStorage(startValue, maxValue)}/>
 
             </WrapperBlock>
         </BoxWrapper>);

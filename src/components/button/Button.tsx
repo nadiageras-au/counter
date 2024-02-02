@@ -15,7 +15,6 @@ export const Button:React.FC<ButtonProps> = ({title,isDisabled,onClick}) => {
     // @ts-ignore
     return (
         <StyledButton disabled={isDisabled} onClick={onClickHandler}>
-
             {title}
         </StyledButton>
     );

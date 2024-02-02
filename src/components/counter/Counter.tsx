@@ -14,6 +14,8 @@ export const Counter = (props:CounterProps) => {
     let localStart = Number(localStorage.getItem('startValue'));
 
     let [countStart, setCountStart] = useState(localStart ? localStart : 0);
+
+    const [countError, setCountError] = useState(false)
     //let [countValue, setCountValue] = useState
 
     useEffect(() => {
@@ -21,18 +23,23 @@ export const Counter = (props:CounterProps) => {
             //let newLocalStart = Number(localStorage.getItem('startValue'))
            // console.log('change to local Storage');
             setCountStart(Number(localStorage.getItem('startValue')) || 0)
+            setCountError(false);
         })
 
     }, [localStart])
 
     const addCount = () => {
+    
+        if (countStart < localMax) {
+            setCountStart(countStart + 1);
+        }
+        setCountError((countStart + 1) === localMax);
 
-        setCountStart(countStart + 1)
     }
 
     const resetCount = () => {
-        console.log('reset start ', localStart, "max ", localMax);
         setCountStart(localStart)
+        setCountError(false);
     }
 
 
@@ -60,11 +67,11 @@ export const Counter = (props:CounterProps) => {
                 {/*<Display countValue={startValue} maxValue={maxValue}/>*/
                 }
 
-                <Display countValue={countStart}/>
+                <Display countValue={countStart} error={countError}/>
             </WrapperBlock>
 
             <WrapperBlock className='dflex block-btn'>
-                <Button title="inc" isDisabled={false} onClick={() => addCount()}/>
+                <Button title="inc" isDisabled={countError} onClick={() => addCount()}/>
 
                 <Button title="reset" isDisabled={false} onClick={() => resetCount()}/>
 

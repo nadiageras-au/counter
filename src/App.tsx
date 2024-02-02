@@ -15,21 +15,11 @@ type LocalStorageType = {
 
 function App() {
     
-
-    const setToLocalStorage = (startValue: number, maxValue: number) => {
-       // console.log("start ", startValue, "max ", maxValue)
-        localStorage.setItem('startValue', JSON.stringify(startValue))
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
-        window.dispatchEvent(new Event('storage'));
-        
-    }
-
     
-
     return (
         <div className="App">
             <Container>
-                <Settings set={setToLocalStorage}/>
+                <Settings/>
                 <Counter />
             </Container>
 
